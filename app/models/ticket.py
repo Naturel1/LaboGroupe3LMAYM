@@ -1,6 +1,6 @@
 from app import db
 from app.models.base_entity import BaseEntity
-from app.models.ticket_status_history import TicketStatusHistory
+from app.models.ticketstatushistory import TicketStatusHistory
 class Ticket(BaseEntity, db.Model):
     """
     TO DO: Add a description for the Ticket model.
