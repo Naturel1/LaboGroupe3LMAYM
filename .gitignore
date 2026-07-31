@@ -1,0 +1,13 @@
+# Pycharm
+.idea/
+
+# python
+.env
+.env.*
+.venv/*
+
+!.gitkeep
+init_db/*
+
+__pycache__
+*.pyc
