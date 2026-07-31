@@ -18,3 +18,8 @@ class Ticket(BaseEntity, db.Model):
     ticket_category_id = db.Column(db.Integer, db.ForeignKey('categories.category_id'), nullable=False)
     ticket_priority_id = db.Column(db.Integer, db.ForeignKey('priorities.priority_id'), nullable=False)
     ticket_equipment_id = db.Column(db.Integer, db.ForeignKey('equipments.equipment_id'), nullable=True)
+
+    ticket_comment = db.relationship('Comment', back_populates='ticket', cascade='all, delete-orphan')
+    ticket_history = db.relationship('History', back_populates='ticket', cascade='all, delete-orphan')
+    ticket_attachment = db.relationship('Attachment', back_populates='ticket', cascade='all, delete-orphan')
+    ticket_survey = db.relationship('Survey', back_populates='ticket', cascade='all, delete-orphan')
