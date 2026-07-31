@@ -36,8 +36,7 @@ class Ticket(BaseEntity, db.Model):
         Change the status of the ticket and log the change in ticket status history.
         """
 
-        old_status = self.ticket_status
-        history_entry = TicketStatusHistory(ticket_id=self.ticket_id, old_status=old_status, new_status=new_status)
+        history_entry = TicketStatusHistory(ticket_id=self.ticket_id, user_id=self.ticket_technician_id or self.ticket_author_id, old_status=self.ticket_status, new_status=new_status)
         db.session.add(history_entry)
         self.ticket_status = new_status
         db.session.commit()
