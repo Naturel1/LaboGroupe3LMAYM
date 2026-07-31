@@ -12,4 +12,6 @@ init_db/*
 __pycache__
 *.pyc
 
+# Exemple
+Exemple/
 Exemple/*
