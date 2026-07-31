@@ -1,0 +1,14 @@
+from app import db
+from app.models.base_entity import BaseEntity
+
+class Priority(BaseEntity, db.Model):
+    """
+    TO DO: Add a description for the Priority model.
+    """
+
+    __tablename__ = 'priorities'
+
+    priority_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    priority_name = db.Column(db.String(100), nullable=False, unique=True)
+    priority_level = db.Column(db.Integer, nullable=False)
+    priority_delay_hours = db.Column(db.Integer, nullable=False)
