@@ -1,6 +1,6 @@
 from app import db
 from app.models.base_entity import BaseEntity
-
+from app.models.ticket_status_history import TicketStatusHistory
 class Ticket(BaseEntity, db.Model):
     """
     TO DO: Add a description for the Ticket model.
@@ -19,7 +19,24 @@ class Ticket(BaseEntity, db.Model):
     ticket_priority_id = db.Column(db.Integer, db.ForeignKey('priorities.priority_id'), nullable=False)
     ticket_equipment_id = db.Column(db.Integer, db.ForeignKey('equipments.equipment_id'), nullable=True)
 
-    ticket_comment = db.relationship('Comment', back_populates='ticket', cascade='all, delete-orphan')
-    ticket_history = db.relationship('History', back_populates='ticket', cascade='all, delete-orphan')
-    ticket_attachment = db.relationship('Attachment', back_populates='ticket', cascade='all, delete-orphan')
-    ticket_survey = db.relationship('Survey', back_populates='ticket', cascade='all, delete-orphan')
+    author = db.relationship('User', foreign_keys=[ticket_author_id], back_populates='user_tickets_authored')
+    technician = db.relationship('User', foreign_keys=[ticket_technician_id], back_populates='user_tickets_assigned')
+    category = db.relationship('Category', back_populates='category_tickets')
+    priority = db.relationship('Priority', back_populates='priority_tickets')
+    equipment = db.relationship('Equipment', back_populates='equipment_tickets')
+
+    comment = db.relationship('Comment', back_populates='ticket', cascade='all, delete-orphan')
+    history = db.relationship('TicketStatusHistory', back_populates='ticket', cascade='all, delete-orphan')
+    attachment = db.relationship('Attachment', back_populates='ticket', cascade='all, delete-orphan')
+    survey = db.relationship('Survey', back_populates='ticket', cascade='all, delete-orphan')
+
+    def change_status(self, new_status):
+        """
+        Change the status of the ticket and log the change in ticket status history.
+        """
+
+        old_status = self.ticket_status
+        history_entry = TicketStatusHistory(ticket_id=self.ticket_id, old_status=old_status, new_status=new_status)
+        db.session.add(history_entry)
+        self.ticket_status = new_status
+        db.session.commit()
