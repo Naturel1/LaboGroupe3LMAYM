@@ -11,15 +11,13 @@ services:
   postgres:
     image: postgres:18
     container_name: db-postgres
-    environment:
-      POSTGRES_DB: ticket
-      POSTGRES_USER: ticket
-      POSTGRES_PASSWORD: ticket
+    env_file: .env.local
     ports:
       - "5432:5432"
     volumes:
       - ./init_db:/init_db
       - app-volume:/var/lib/postgresql/18/docker
+
   mailpit:
     image: axllent/mailpit:latest
     ports:
