@@ -19,15 +19,15 @@ class Ticket(BaseEntity, db.Model):
     ticket_priority_id = db.Column(db.Integer, db.ForeignKey('priorities.priority_id'), nullable=False)
     ticket_equipment_id = db.Column(db.Integer, db.ForeignKey('equipments.equipment_id'), nullable=True)
 
-    author = db.relationship('User', foreign_keys=[ticket_author_id], back_populates='user_tickets_authored')
-    technician = db.relationship('User', foreign_keys=[ticket_technician_id], back_populates='user_tickets_assigned')
+    author = db.relationship('User', foreign_keys=[ticket_author_id], back_populates='tickets_created')
+    technician = db.relationship('User', foreign_keys=[ticket_technician_id], back_populates='tickets_assigned')
     category = db.relationship('Category', back_populates='category_tickets')
     priority = db.relationship('Priority', back_populates='priority_tickets')
     equipment = db.relationship('Equipment', back_populates='equipment_tickets')
 
-    comment = db.relationship('Comment', back_populates='ticket', cascade='all, delete-orphan')
-    history = db.relationship('TicketStatusHistory', back_populates='ticket', cascade='all, delete-orphan')
-    attachment = db.relationship('Attachment', back_populates='ticket', cascade='all, delete-orphan')
+    comments = db.relationship('Comment', back_populates='ticket', cascade='all, delete-orphan')
+    histories = db.relationship('TicketStatusHistory', back_populates='ticket', cascade='all, delete-orphan')
+    attachments = db.relationship('Attachment', back_populates='ticket', cascade='all, delete-orphan')
     survey = db.relationship('Survey', back_populates='ticket', cascade='all, delete-orphan')
 
     def change_status(self, new_status):
