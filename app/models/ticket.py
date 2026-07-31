@@ -29,6 +29,7 @@ class Ticket(BaseEntity, db.Model):
     histories = db.relationship('TicketStatusHistory', back_populates='ticket', cascade='all, delete-orphan')
     attachments = db.relationship('Attachment', back_populates='ticket', cascade='all, delete-orphan')
     survey = db.relationship('Survey', back_populates='ticket', cascade='all, delete-orphan')
+    tags = db.relationship('TicketTag', back_populates='rel_ticket', cascade='all, delete-orphan')
 
     def change_status(self, new_status):
         """
