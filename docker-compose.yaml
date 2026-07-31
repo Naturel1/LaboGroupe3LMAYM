@@ -1,0 +1,29 @@
+services:
+  app:
+    image: python:3.13.14-trixie
+    command: "bash -c 'pip install  -r requirements.txt && python main.py'"
+    working_dir: /app
+    volumes:
+      - ./:/app
+    ports:
+      - 8080:8080
+
+  postgres:
+    image: postgres:18
+    container_name: db-postgres
+    environment:
+      POSTGRES_DB: ticket
+      POSTGRES_USER: ticket
+      POSTGRES_PASSWORD: ticket
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./init_db:/init_db
+      - app-volume:/var/lib/postgresql/18/docker
+  mailpit:
+    image: axllent/mailpit:latest
+    ports:
+      - '1025:1025'
+      - '8025:8025'
+volumes:
+  app-volume:
