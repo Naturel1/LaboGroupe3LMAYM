@@ -1,10 +1,9 @@
 from app import db
 from app.models.base_entity import BaseEntity
 
+
 class Category(BaseEntity, db.Model):
-    """
-    TO DO: Add a description for the Category model.
-    """
+    """Represents a category for tickets or knowledge articles."""
 
     __tablename__ = 'categories'
 

@@ -3,9 +3,7 @@ from app.models.base_entity import BaseEntity
 
 
 class Site(BaseEntity, db.Model):
-    """
-    to do
-    """
+    """Represents a physical location or site."""
     __tablename__ = 'sites'
 
     site_id = db.Column(db.Integer, primary_key=True, autoincrement=True)

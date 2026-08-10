@@ -4,11 +4,10 @@ from app import db
 
 
 class BaseEntity:
-    """
-    to do
-    """
+    """Base class for all entities, providing common fields."""
 
-    created_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
+    created_at = db.Column(db.DateTime(timezone=True),
+                           server_default=func.now())
     updated_at = db.Column(db.DateTime(timezone=True), onupdate=func.now())
     deleted_at = db.Column(db.DateTime(timezone=True))
     active = db.Column(db.Boolean, nullable=False, default=True,

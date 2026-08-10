@@ -1,10 +1,9 @@
 from app import db
 from app.models.base_entity import BaseEntity
 
+
 class Comment(BaseEntity, db.Model):
-    """
-    to do
-    """
+    """Represents a comment made on a ticket by a user."""
 
     __tablename__ = 'comments'
 

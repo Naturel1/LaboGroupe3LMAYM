@@ -1,10 +1,9 @@
 from app import db
 from app.models.base_entity import BaseEntity
 
+
 class Priority(BaseEntity, db.Model):
-    """
-    TO DO: Add a description for the Priority model.
-    """
+    """Represents a ticket priority level and its resolution delay."""
 
     __tablename__ = 'priorities'
 

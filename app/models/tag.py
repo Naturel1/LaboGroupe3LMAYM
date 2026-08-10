@@ -1,9 +1,9 @@
 from app import db
 from app.models.base_entity import BaseEntity
 
+
 class Tag(BaseEntity, db.Model):
-    """A label that can be attached to one or more tickets.
-    """
+    """Represents a label that can be attached to one or more tickets."""
 
     __tablename__ = 'tags'
 

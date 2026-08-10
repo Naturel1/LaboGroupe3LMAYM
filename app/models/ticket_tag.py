@@ -1,9 +1,9 @@
 from app import db
 from app.models.base_entity import BaseEntity
 
+
 class TicketTag(BaseEntity, db.Model):
-    """Association table for Ticket <-> Tag .
-    """
+    """Association table between tickets and tags."""
 
     __tablename__ = 'ticket_tags'
 
