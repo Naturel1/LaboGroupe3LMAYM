@@ -1,0 +1,22 @@
+from app import db
+from app.models.base_entity import BaseEntity
+
+
+class TicketStatusHistory(BaseEntity, db.Model):
+    """Represents the history of status changes for a ticket."""
+
+    __tablename__ = 'ticket_status_histories'
+
+    ticket_status_history_id = db.Column(db.Integer, primary_key=True,
+                                       autoincrement=True)
+    ticket_status_history_ticket_id = db.Column(
+        db.ForeignKey('tickets.ticket_id')
+    )
+    ticket_status_history_user_id = db.Column(db.ForeignKey('users.user_id'))
+    ticket_status_history_old_status = db.Column(db.String(16), nullable=False,
+                                                 default='')
+    ticket_status_history_new_status = db.Column(db.String(16), nullable=False)
+
+    # Add relationships
+    ticket = db.relationship('Ticket', back_populates='histories', cascade='all, delete-orphan')
+    user = db.relationship('User', back_populates='ticket_status_histories', cascade='all, delete-orphan')
