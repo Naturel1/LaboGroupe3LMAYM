@@ -11,6 +11,8 @@ class Site(BaseEntity, db.Model):
     site_address = db.Column(db.String(255), nullable=True)
     site_city = db.Column(db.String(100), nullable=True)
 
-    user = db.relationship('User', back_populates='sites')
-
-    equipment = db.relationship('Equipment', back_populates='sites')
+    # Add relationships
+    equipments = db.relationship('Equipment', back_populates='site',
+                                 foreign_keys='Equipment.equipment_site_id', cascade='all, delete-orphan')
+    users = db.relationship('User', back_populates='site',
+                            foreign_keys='User.user_site_id', cascade='all, delete-orphan')

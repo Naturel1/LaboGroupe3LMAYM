@@ -11,5 +11,6 @@ class UserRole(BaseEntity, db.Model):
     UserRole_role_id = db.Column(db.ForeignKey('roles.role_id'),
                                  primary_key=True)
 
-    user = db.relationship('User', back_populates='roles')
-    role = db.relationship('Role', back_populates='users')
+    # Add relationships
+    user = db.relationship('User', back_populates='roles', cascade='all, delete-orphan')
+    role = db.relationship('Role', back_populates='users', cascade='all, delete-orphan')

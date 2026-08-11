@@ -10,12 +10,12 @@ class Equipment(BaseEntity, db.Model):
     equipment_name = db.Column(db.String(100), nullable=False)
     equipment_type = db.Column(db.String(80), nullable=False)
     equipment_serial = db.Column(db.String(100), nullable=False, unique=True)
-    equipment_purchasedate = db.Column(db.DateTime, nullable=False)
-
-    site_id = db.Column(db.Integer, db.ForeignKey('sites.site_id'),
+    equipment_purchase_date = db.Column(db.DateTime, nullable=False)
+    equipment_site_id = db.Column(db.Integer, db.ForeignKey('sites.site_id'),
                         nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'),
+    equipment_user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'),
                         nullable=True)
 
-    site = db.relationship('Site', back_populates='equipments')
-    user = db.relationship('User', back_populates='equipments')
+    # Add relationships
+    site = db.relationship('Site', back_populates='equipments', cascade='all, delete-orphan')
+    user = db.relationship('User', back_populates='equipments', cascade='all, delete-orphan')

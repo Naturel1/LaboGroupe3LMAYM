@@ -12,4 +12,6 @@ class Team(BaseEntity, db.Model):
                           index=True)
     team_description = db.Column(db.String(256), nullable=True)
 
-    members = db.relationship('User', back_populates='team')
+    # Add relationships
+    members = db.relationship('User', back_populates='team',
+                              foreign_keys='User.user_team_id', cascade='all, delete-orphan')

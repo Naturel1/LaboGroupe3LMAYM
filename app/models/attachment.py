@@ -16,3 +16,5 @@ class Attachment(BaseEntity, db.Model):
     attachment_author_id = db.Column(db.ForeignKey('users.user_id'))
 
     # Add relationships
+    ticket = db.relationship('Ticket', back_populates='attachments', cascade='all, delete-orphan')
+    author = db.relationship('User', back_populates='attachments', cascade='all, delete-orphan')

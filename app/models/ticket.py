@@ -29,6 +29,7 @@ class Ticket(BaseEntity, db.Model):
         db.Integer, db.ForeignKey('equipments.equipment_id'), nullable=True
     )
 
+    # Add relationships
     author = db.relationship(
         'User', foreign_keys=[ticket_author_id],
         back_populates='tickets_created'
@@ -42,22 +43,30 @@ class Ticket(BaseEntity, db.Model):
     equipment = db.relationship(
         'Equipment', back_populates='equipment_tickets'
     )
-
     comments = db.relationship(
-        'Comment', back_populates='ticket', cascade='all, delete-orphan'
+        'Comment', back_populates='ticket', cascade='all, delete-orphan',
+        foreign_keys='Comment.comment_ticket_id'
     )
     histories = db.relationship(
         'TicketStatusHistory', back_populates='ticket',
-        cascade='all, delete-orphan'
+        cascade='all, delete-orphan',
+        foreign_keys='TicketStatusHistory.ticket_status_history_ticket_id'
     )
     attachments = db.relationship(
-        'Attachment', back_populates='ticket', cascade='all, delete-orphan'
+        'Attachment', back_populates='ticket', cascade='all, delete-orphan',
+        foreign_keys='Attachment.attachment_ticket_id'
     )
-    survey = db.relationship(
-        'Survey', back_populates='ticket', cascade='all, delete-orphan'
+    satisfaction_survey = db.relationship(
+        'SatisfactionSurvey', back_populates='ticket', cascade='all, delete-orphan',
+        foreign_keys='SatisfactionSurvey.satisfaction_survey_ticket_id'
     )
     tags = db.relationship(
-        'TicketTag', back_populates='rel_ticket', cascade='all, delete-orphan'
+        'TicketTag', back_populates='rel_ticket', cascade='all, delete-orphan',
+        foreign_keys='TicketTag.ticket_tag_ticket_id'
+    )
+    interventions = db.relationship(
+        'Intervention', back_populates='ticket', cascade='all, delete-orphan',
+        foreign_keys='Intervention.intervention_ticket_id'
     )
 
     def change_status(self, new_status):

@@ -11,4 +11,6 @@ class Tag(BaseEntity, db.Model):
     tag_name = db.Column(db.String(64), unique=True, nullable=False)
     tag_color = db.Column(db.String(7), nullable=False)
 
-    rel_ticket = db.relationship('TicketTag', back_populates='rel_tag')
+    # Add relationships
+    rel_ticket = db.relationship('TicketTag', back_populates='rel_tag', cascade='all, delete-orphan',
+                                 foreign_keys='TicketTag.ticket_tag_tag_id')

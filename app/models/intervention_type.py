@@ -13,8 +13,9 @@ class InterventionType(BaseEntity, db.Model):
                                        nullable=False)
     intervention_type_description = db.Column(db.String(256), nullable=False)
 
-    interventions = db.relationship('Intervention',
-                                    back_populates='intervention_type')
+    # Add relationships
+    interventions = db.relationship('Intervention', back_populates='intervention_type',
+                                    foreign_keys='Intervention.intervention_type_id', cascade='all, delete-orphan')
 
     def __repr__(self):
         return f"<InterventionType {self.intervention_type_name}>"

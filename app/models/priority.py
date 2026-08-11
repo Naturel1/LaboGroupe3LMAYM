@@ -11,3 +11,7 @@ class Priority(BaseEntity, db.Model):
     priority_name = db.Column(db.String(100), nullable=False, unique=True)
     priority_level = db.Column(db.Integer, nullable=False)
     priority_delay_hours = db.Column(db.Integer, nullable=False)
+
+    # Add relationships
+    tickets = db.relationship('Ticket', back_populates='priority',
+                              foreign_keys='Ticket.ticket_priority_id', cascade='all, delete-orphan')
