@@ -16,8 +16,7 @@ services:
       - "5432:5432"
     volumes:
       - ./init_db:/init_db
-      - app-volume:/var/lib/postgresql/18/docker
-
+      - app-volume:/var/lib/postgresql
   mailpit:
     image: axllent/mailpit:latest
     ports:
