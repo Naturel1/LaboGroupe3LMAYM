@@ -1,6 +1,6 @@
 from app import db
 from app.models.base_entity import BaseEntity
-from app.models.ticketstatushistory import TicketStatusHistory
+from app.models.ticket_status_history import TicketStatusHistory
 
 
 class Ticket(BaseEntity, db.Model):
