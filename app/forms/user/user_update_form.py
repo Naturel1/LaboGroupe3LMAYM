@@ -14,7 +14,6 @@ class UserUpdateForm(FlaskForm):
     """
 
     email = EmailField('Email', validators=[DataRequired(), Email(), Length(max=120)])
-    description = TextAreaField('Description', validators=[Optional(), Length(max=255)])
     roles = SelectMultipleField('Roles', coerce=int, validators=[Optional()])
 
     def __init__(self, *args, **kwargs):

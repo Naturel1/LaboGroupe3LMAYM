@@ -45,4 +45,3 @@ class UserRegisterForm(FlaskForm):
                                          EqualTo('confirm',
                                                  message='Passwords do not match!')])
     confirm = PasswordField('Confirmation', validators=[DataRequired()])
-    description = TextAreaField('Description', validators=[Length(max=255)])

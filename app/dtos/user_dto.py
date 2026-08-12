@@ -10,7 +10,6 @@ class UserDTO(AbstractDTO):
         self.firstname = None
         self.lastname = None
         self.email = None
-        self.description = None
         self.email_verified = None
 
 
@@ -26,7 +25,6 @@ class UserDTO(AbstractDTO):
         user_dto.firstname = user.firstname
         user_dto.lastname = user.lastname
         user_dto.email = user.email
-        user_dto.description = user.description
         user_dto.email_verified = user.email_verified
 
         return user_dto
