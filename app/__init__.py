@@ -8,6 +8,8 @@ from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import CSRFProtect
 
+from app.framework.injector import Injector
+
 load_dotenv()
 
 env_path = Path().cwd() / '.env.local'
@@ -31,3 +33,5 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
 from app.models import *
+
+injector = Injector(app)
