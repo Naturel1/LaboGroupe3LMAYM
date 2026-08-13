@@ -11,6 +11,7 @@ from app.services.user_service import UserService
 @injectable(base=AuthService, scope=Scope.SCOPED)
 class AuthServiceImpl(AuthService):
     """Provides implementation of authentication service."""
+
     @inject
     def __init__(self, user_service: UserService):
         self.__user_service = user_service
