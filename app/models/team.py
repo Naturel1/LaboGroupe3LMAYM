@@ -6,11 +6,11 @@ class Team(BaseEntity, db.Model):
     """Represents a team of users."""
     __tablename__ = 'teams'
 
-    team_id = db.Column(db.Integer, primary_key=True,
+    team_id = db.mapped_column(db.Integer, primary_key=True,
                         autoincrement=True)
-    team_name = db.Column(db.String(80), unique=True, nullable=False,
+    team_name = db.mapped_column(db.String(80), unique=True, nullable=False,
                           index=True)
-    team_description = db.Column(db.String(256), nullable=True)
+    team_description = db.mapped_column(db.String(256), nullable=True)
 
     # Add relationships
     members = db.relationship('User', back_populates='team',

@@ -21,11 +21,11 @@ class UserDTO(AbstractDTO):
         user_dto = UserDTO()
 
         user_dto.user_id = user.user_id
-        user_dto.username = user.username
-        user_dto.firstname = user.firstname
-        user_dto.lastname = user.lastname
-        user_dto.email = user.email
-        user_dto.email_verified = user.email_verified
+        user_dto.username = user.user_username
+        user_dto.firstname = user.user_firstname
+        user_dto.lastname = user.user_lastname
+        user_dto.email = user.user_email
+        user_dto.email_verified = None
 
         return user_dto
 

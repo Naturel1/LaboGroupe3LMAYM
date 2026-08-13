@@ -7,9 +7,9 @@ class Tag(BaseEntity, db.Model):
 
     __tablename__ = 'tags'
 
-    tag_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    tag_name = db.Column(db.String(64), unique=True, nullable=False)
-    tag_color = db.Column(db.String(7), nullable=False)
+    tag_id = db.mapped_column(db.Integer, primary_key=True, autoincrement=True)
+    tag_name = db.mapped_column(db.String(64), unique=True, nullable=False)
+    tag_color = db.mapped_column(db.String(7), nullable=False)
 
     # Add relationships
     rel_ticket = db.relationship('TicketTag', back_populates='rel_tag', cascade='all, delete-orphan',
