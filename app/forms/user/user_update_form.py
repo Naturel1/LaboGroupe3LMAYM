@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import EmailField, SelectMultipleField, TextAreaField
+from wtforms import EmailField, SelectMultipleField
 from wtforms.validators import DataRequired, Email, Length, Optional
 
 from app.services.role_service import RoleService
