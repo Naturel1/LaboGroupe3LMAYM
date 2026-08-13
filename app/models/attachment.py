@@ -7,14 +7,14 @@ class Attachment(BaseEntity, db.Model):
 
     __tablename__ = 'attachments'
 
-    attachment_id = db.Column(db.Integer, primary_key=True,
+    attachment_id = db.mapped_column(db.Integer, primary_key=True,
                               autoincrement=True)
-    attachment_filename = db.Column(db.String(255), unique=True, index=True)
-    attachment_path = db.Column(db.String(255))
-    attachment_size = db.Column(db.Integer)
-    attachment_ticket_id = db.Column(db.ForeignKey('tickets.ticket_id'))
-    attachment_author_id = db.Column(db.ForeignKey('users.user_id'))
+    attachment_filename = db.mapped_column(db.String(255), unique=True, index=True)
+    attachment_path = db.mapped_column(db.String(255))
+    attachment_size = db.mapped_column(db.Integer)
+    attachment_ticket_id = db.mapped_column(db.ForeignKey('tickets.ticket_id'))
+    attachment_author_id = db.mapped_column(db.ForeignKey('users.user_id'))
 
     # Add relationships
-    ticket = db.relationship('Ticket', back_populates='attachments', cascade='all, delete-orphan')
-    author = db.relationship('User', back_populates='attachments', cascade='all, delete-orphan')
+    ticket = db.relationship('Ticket', back_populates='attachments')
+    author = db.relationship('User', back_populates='attachments')

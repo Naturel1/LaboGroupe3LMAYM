@@ -7,9 +7,9 @@ class Category(BaseEntity, db.Model):
 
     __tablename__ = 'categories'
 
-    category_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    category_name = db.Column(db.String(100), nullable=False, unique=True)
-    category_description = db.Column(db.String(255), nullable=True)
+    category_id = db.mapped_column(db.Integer, primary_key=True, autoincrement=True)
+    category_name = db.mapped_column(db.String(100), nullable=False, unique=True)
+    category_description = db.mapped_column(db.String(255), nullable=True)
 
     # Add relationships
     knowledge_articles = db.relationship('KnowledgeArticle', back_populates='category',

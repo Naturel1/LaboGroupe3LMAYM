@@ -42,7 +42,7 @@ class UserService(BaseService):
         """Create a new user. Return the DTO of the new user or None if email/username already exists."""
         user = User()
         UserMapper.form_to_entity(form, user)
-        user.password = self.__hasher.hash(user.password)
+        user.user_password = self.__hasher.hash(user.user_password)
 
         role_user = Role.query.filter_by(role_name="USER").first()
         if role_user is not None:
@@ -84,7 +84,7 @@ class UserService(BaseService):
         if user is None:
             return None
 
-        user.password = self.__hasher.hash(plain_password)
+        user.user_password = self.__hasher.hash(plain_password)
 
         try:
             db.session.commit()
@@ -148,21 +148,21 @@ class UserService(BaseService):
         candidate = User()
         UserMapper.form_to_entity(form, candidate)
 
-        user = self.find_one_by(username=candidate.username, active=True)
+        user = self.find_one_by(user_username=candidate.user_username, active=True)
 
         if user is None:
             # Hash password anyway to avoid timing attacks.
-            self.__hasher.hash(candidate.password)
+            self.__hasher.hash(candidate.user_password)
             return None
 
         try:
             # Exception raised if invalid password
-            self.__hasher.verify(user.password, candidate.password)
+            self.__hasher.verify(user.user_password, candidate.user_password)
         except (VerifyMismatchError, VerificationError, InvalidHashError):
             return None
 
-        if self.__hasher.check_needs_rehash(user.password):
-            user.password = self.__hasher.hash(candidate.password)
+        if self.__hasher.check_needs_rehash(user.user_password):
+            user.user_password = self.__hasher.hash(candidate.user_password)
             db.session.commit()
 
         return UserMapper.entity_to_dto(user)
