@@ -1,4 +1,5 @@
 from app.dtos.abstract_dto import AbstractDTO
+from app.dtos.role_dto import RoleDTO
 
 
 class UserDTO(AbstractDTO):
@@ -11,8 +12,7 @@ class UserDTO(AbstractDTO):
         self.lastname = None
         self.email = None
         self.email_verified = None
-
-
+        self.roles = []
 
     @staticmethod
     def build_from_entity(user) -> "UserDTO":
@@ -26,9 +26,18 @@ class UserDTO(AbstractDTO):
         user_dto.lastname = user.user_lastname
         user_dto.email = user.user_email
         user_dto.email_verified = None
+        user_dto.roles = [RoleDTO.build_from_entity(user_role.role)
+                          for user_role in user.roles]
 
         return user_dto
 
+    def role_names(self) -> list[str]:
+        """Return the names of the user's roles."""
+        return [role.role_name for role in self.roles]
+
+    def is_admin(self) -> bool:
+        """Return True if the user is an admin."""
+        return "ADMIN" in self.role_names()
 
     def get_json_parsable(self):
         """Return a dict of base types, ready for jsonify()."""
