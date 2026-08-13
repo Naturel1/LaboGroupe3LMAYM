@@ -7,15 +7,15 @@
 
 ## En bref (paramètres ajustables)
 
-| Paramètre | Valeur par défaut | À adapter                             |
-|---|---|---------------------------------------|
-| Taille de l'équipe | 4 apprenants | **5 = ajouter la tranche 5 et ses 4 tables optionnelles** · 3 = voir §7.5 |
-| Durée | 5 jours | Compressible à 3 en coupant les bonus |
-| Base de code | Squelette **`phil-form/pythonORM`** | —                                     |
-| Stack | Flask + SQLAlchemy + Flask-Migrate, PostgreSQL, WTForms, argon2, PyJWT, injecteur maison | —                                     |
-| Base de données | PostgreSQL via `docker-compose` | —                                     |
-| Front | Templates Jinja + `ajax-tools.js` fournis (API JSON) | --                                    |
-| Blueprints | Non utilisés (le framework auto-découvre les contrôleurs) | —                                     |
+| Paramètre          | Valeur par défaut                                                                        | À adapter                                                                 |
+|--------------------|------------------------------------------------------------------------------------------|---------------------------------------------------------------------------|
+| Taille de l'équipe | 4 apprenants                                                                             | **5 = ajouter la tranche 5 et ses 4 tables optionnelles** · 3 = voir §7.5 |
+| Durée              | 5 jours                                                                                  | Compressible à 3 en coupant les bonus                                     |
+| Base de code       | Squelette **`phil-form/pythonORM`**                                                      | —                                                                         |
+| Stack              | Flask + SQLAlchemy + Flask-Migrate, PostgreSQL, WTForms, argon2, PyJWT, injecteur maison | —                                                                         |
+| Base de données    | PostgreSQL via `docker-compose`                                                          | —                                                                         |
+| Front              | Templates Jinja + `ajax-tools.js` fournis (API JSON)                                     | --                                                                        |
+| Blueprints         | Non utilisés (le framework auto-découvre les contrôleurs)                                | —                                                                         |
 
 ---
 
@@ -44,11 +44,11 @@ Vous êtes **4 développeurs**. Si une **5ᵉ personne** rejoint l'équipe, elle
 
 ### 3.1 Rôles (table `roles`, N-M via `userroles`)
 
-| Rôle (`rolename`) | Qui | Peut faire |
-|---|---|---|
-| `CLIENT` | Employé | Créer et suivre *ses* tickets, commenter, noter la résolution |
-| `TECHNICIEN` | Membre d'une équipe support | Voir tous les tickets, s'assigner, changer le statut, documenter des solutions |
-| `ADMIN` | Responsable IT | + gérer utilisateurs, équipes, parc, référentiels, statistiques |
+| Rôle (`rolename`) | Qui                         | Peut faire                                                                     |
+|-------------------|-----------------------------|--------------------------------------------------------------------------------|
+| `CLIENT`          | Employé                     | Créer et suivre *ses* tickets, commenter, noter la résolution                  |
+| `TECHNICIEN`      | Membre d'une équipe support | Voir tous les tickets, s'assigner, changer le statut, documenter des solutions |
+| `ADMIN`           | Responsable IT              | + gérer utilisateurs, équipes, parc, référentiels, statistiques                |
 
 ### 3.2 Cycle de vie d'un ticket
 
@@ -74,22 +74,22 @@ Le client ne change pas le statut. **Chaque changement écrit une ligne** dans `
 
 Cette répartition est **la même à 4 et à 5** : l'arrivée d'une 5ᵉ personne ne redistribue rien.
 
-| # | Table | Propriétaire | Rôle |
-|---|---|---|---|
-| 1 | `users` | Dev A | Comptes |
-| 2 | `roles` | Dev A | Rôles (CLIENT/TECHNICIEN/ADMIN) |
-| 3 | `userroles` *(N-M)* | Dev A | Liaison user ↔ role |
-| 4 | `teams` | Dev A | Équipes du support |
-| 5 | `categories` | Dev B | Catégories de demande |
-| 6 | `priorities` | Dev B | Référentiel priorité + SLA |
-| 7 | `tickets` | Dev B | Cœur du système |
-| 8 | `comments` | Dev C | Fil de discussion |
-| 9 | `ticketstatushistories` | Dev C | Journal des statuts |
-| 10 | `attachments` | Dev C | Pièces jointes |
-| 11 | `sites` | Dev D | Sites / bâtiments |
-| 12 | `equipments` | Dev D | Parc matériel |
-| 13 | `knowledgearticles` | Dev D | Base de connaissances |
-| 14 | `satisfactionsurveys` | Dev D | Enquête (1 par ticket) |
+| #  | Table                   | Propriétaire | Rôle                            |
+|----|-------------------------|--------------|---------------------------------|
+| 1  | `users`                 | Dev A        | Comptes                         |
+| 2  | `roles`                 | Dev A        | Rôles (CLIENT/TECHNICIEN/ADMIN) |
+| 3  | `userroles` *(N-M)*     | Dev A        | Liaison user ↔ role             |
+| 4  | `teams`                 | Dev A        | Équipes du support              |
+| 5  | `categories`            | Dev B        | Catégories de demande           |
+| 6  | `priorities`            | Dev B        | Référentiel priorité + SLA      |
+| 7  | `tickets`               | Dev B        | Cœur du système                 |
+| 8  | `comments`              | Dev C        | Fil de discussion               |
+| 9  | `ticketstatushistories` | Dev C        | Journal des statuts             |
+| 10 | `attachments`           | Dev C        | Pièces jointes                  |
+| 11 | `sites`                 | Dev D        | Sites / bâtiments               |
+| 12 | `equipments`            | Dev D        | Parc matériel                   |
+| 13 | `knowledgearticles`     | Dev D        | Base de connaissances           |
+| 14 | `satisfactionsurveys`   | Dev D        | Enquête (1 par ticket)          |
 
 *Tables non-liaison par personne : A=3, B=3, C=3, D=4 → contrainte « ≥ 2 hors N-M » respectée. D porte 4 tables mais dont trois légères ; A et B portent en compensation une **brique transverse** (tableau de bord, recherche/pagination) — l'équilibrage chiffré est en §7.1. La liaison `userroles` réutilise le patron `UserRole` du dépôt.*
 
@@ -130,12 +130,12 @@ Cette répartition est **la même à 4 et à 5** : l'arrivée d'une 5ᵉ personn
 
 Ces 4 tables **n'existent pas** dans un projet à 4 : elles ne sont ni écrites, ni migrées, ni évaluées. Elles forment le périmètre propre de la tranche 5.
 
-| # | Table | Rôle |
-|---|---|---|
-| 15 | `interventions` | Intervention d'un technicien sur un ticket (date, durée, compte rendu) |
-| 16 | `interventiontypes` | Référentiel : déplacement sur site, télémaintenance, atelier… |
-| 17 | `tags` | Étiquettes libres posées sur les tickets |
-| 18 | `tickettags` *(N-M)* | Liaison ticket ↔ tag |
+| #  | Table                | Rôle                                                                   |
+|----|----------------------|------------------------------------------------------------------------|
+| 15 | `interventions`      | Intervention d'un technicien sur un ticket (date, durée, compte rendu) |
+| 16 | `interventiontypes`  | Référentiel : déplacement sur site, télémaintenance, atelier…          |
+| 17 | `tags`               | Étiquettes libres posées sur les tickets                               |
+| 18 | `tickettags` *(N-M)* | Liaison ticket ↔ tag                                                   |
 
 **`interventions`** — interventionid *(PK)* · interventiondate · interventionduration *(int, minutes)* · interventionreport *(compte rendu)* · ticketid → `tickets` · technicianid → `users` · interventiontypeid → `interventiontypes`.
 
@@ -176,15 +176,15 @@ Règle d'or (README du dépôt, §6), à ne jamais inverser :
 
 ### 5.2 Rôle de chaque couche
 
-| Couche | Dossier | Convention imposée |
-|---|---|---|
-| **Modèle** | `app/models/` | `(BaseEntity, db.Model)`, colonnes préfixées, méthodes métier sur l'entité |
-| **Form** | `app/forms/<domaine>/` | `FlaskForm`, `.from_json(request.json)` |
-| **DTO** | `app/dtos/` | hérite `AbstractDTO` : `build_from_entity(entity)` + `get_json_parsable()` |
-| **Mapper** | `app/mappers/` | hérite `AbstractMapper` : `entity_to_dto(entity)`, `form_to_entity(form, entity)` |
-| **Service** | `app/services/` | hérite `BaseService` : `find_all / find_one / find_one_by / insert / update / delete` |
-| **Contrôleur** | `app/controllers/` | `@app.route('/...')` + `@auth_required(level=...)` + `@inject` |
-| **Vue** | `app/templates/`, `app/static/js/` | Jinja |
+| Couche         | Dossier                            | Convention imposée                                                                    |
+|----------------|------------------------------------|---------------------------------------------------------------------------------------|
+| **Modèle**     | `app/models/`                      | `(BaseEntity, db.Model)`, colonnes préfixées, méthodes métier sur l'entité            |
+| **Form**       | `app/forms/<domaine>/`             | `FlaskForm`, `.from_json(request.json)`                                               |
+| **DTO**        | `app/dtos/`                        | hérite `AbstractDTO` : `build_from_entity(entity)` + `get_json_parsable()`            |
+| **Mapper**     | `app/mappers/`                     | hérite `AbstractMapper` : `entity_to_dto(entity)`, `form_to_entity(form, entity)`     |
+| **Service**    | `app/services/`                    | hérite `BaseService` : `find_all / find_one / find_one_by / insert / update / delete` |
+| **Contrôleur** | `app/controllers/`                 | `@app.route('/...')` + `@auth_required(level=...)` + `@inject`                        |
+| **Vue**        | `app/templates/`, `app/static/js/` | Jinja                                                                                 |
 
 ### 5.3 Injection de dépendances
 
@@ -233,26 +233,26 @@ Le périmètre de base tient en **4 tranches de poids égal**. Une équipe de 5 
 
 Une tranche « pèse » la somme de ses entités et de sa brique transverse, avec le barème suivant :
 
-| Poids | Éléments |
-|---|---|
-| **3** | `tickets` (cœur du système) |
-| **2** | `users`, `comments`, `ticketstatushistories`, `attachments`, `equipments`, `knowledgearticles`, `interventions`, brique **tableau de bord** |
+| Poids | Éléments                                                                                                                                                                                      |
+|-------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **3** | `tickets` (cœur du système)                                                                                                                                                                   |
+| **2** | `users`, `comments`, `ticketstatushistories`, `attachments`, `equipments`, `knowledgearticles`, `interventions`, brique **tableau de bord**                                                   |
 | **1** | `roles`, `teams`, `sites`, `categories`, `priorities`, `satisfactionsurveys`, `interventiontypes`, `tags`, `tickettags`, briques **recherche / filtres / pagination** et **rapport de temps** |
-| **0** | `userroles` (copie du patron `UserRole` du dépôt) et l'auth minimale, écrite **ensemble le jour 1** (§6) |
+| **0** | `userroles` (copie du patron `UserRole` du dépôt) et l'auth minimale, écrite **ensemble le jour 1** (§6)                                                                                      |
 
 **Les 4 tranches de base — 6 points chacune, à 4 comme à 5 :**
 
-| Tranche | Entités | Brique transverse | Poids |
-|---|---|---|---|
-| 1 · Dev A | `users`, `roles`, `userroles`, `teams` | tableau de bord | 2+1+0+1 +2 = **6** |
-| 2 · Dev B | `categories`, `priorities`, `tickets` | recherche / filtres / pagination | 1+1+3 +1 = **6** |
-| 3 · Dev C | `comments`, `ticketstatushistories`, `attachments` | — | 2+2+2 = **6** |
-| 4 · Dev D | `sites`, `equipments`, `knowledgearticles`, `satisfactionsurveys` | — | 1+2+2+1 = **6** |
+| Tranche   | Entités                                                           | Brique transverse                | Poids              |
+|-----------|-------------------------------------------------------------------|----------------------------------|--------------------|
+| 1 · Dev A | `users`, `roles`, `userroles`, `teams`                            | tableau de bord                  | 2+1+0+1 +2 = **6** |
+| 2 · Dev B | `categories`, `priorities`, `tickets`                             | recherche / filtres / pagination | 1+1+3 +1 = **6**   |
+| 3 · Dev C | `comments`, `ticketstatushistories`, `attachments`                | —                                | 2+2+2 = **6**      |
+| 4 · Dev D | `sites`, `equipments`, `knowledgearticles`, `satisfactionsurveys` | —                                | 1+2+2+1 = **6**    |
 
 **Tranche 5 — activée seulement à 5, calibrée sur le même poids :**
 
-| Tranche | Entités *(optionnelles, §4.3)* | Brique transverse | Poids |
-|---|---|---|---|
+| Tranche   | Entités *(optionnelles, §4.3)*                             | Brique transverse               | Poids              |
+|-----------|------------------------------------------------------------|---------------------------------|--------------------|
 | 5 · Dev E | `interventions`, `interventiontypes`, `tags`, `tickettags` | rapport de temps par technicien | 2+1+1+1 +1 = **6** |
 
 ### 7.2 Les quatre tranches de base
@@ -303,11 +303,11 @@ Périmètre **entièrement additif** : un groupe de 4 ne l'écrit pas et son app
 
 ### 7.5 Adapter à l'effectif réel
 
-| Effectif | Règle |
-|---|---|
-| **4** | Tranches 1 à 4, 6 points chacune. Les tables optionnelles du §4.3 ne sont pas écrites — rien d'autre ne change. |
-| **5** | Idem + tranche 5 et ses 4 tables optionnelles, calibrée sur le même poids (6). Aucune redistribution entre A, B, C et D. |
-| **3** | Tranches 1 à 3 conservées ; la tranche 4 est démontée : `sites` et `equipments` → **A**, `knowledgearticles` et `satisfactionsurveys` → **C**. ~8 points chacun : prévoyez de couper des bonus. |
+| Effectif | Règle                                                                                                                                                                                           |
+|----------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **4**    | Tranches 1 à 4, 6 points chacune. Les tables optionnelles du §4.3 ne sont pas écrites — rien d'autre ne change.                                                                                 |
+| **5**    | Idem + tranche 5 et ses 4 tables optionnelles, calibrée sur le même poids (6). Aucune redistribution entre A, B, C et D.                                                                        |
+| **3**    | Tranches 1 à 3 conservées ; la tranche 4 est démontée : `sites` et `equipments` → **A**, `knowledgearticles` et `satisfactionsurveys` → **C**. ~8 points chacun : prévoyez de couper des bonus. |
 
 ---
 
@@ -322,13 +322,13 @@ Périmètre **entièrement additif** : un groupe de 4 ne l'écrit pas et son app
 
 ## 9. Planning
 
-| Jour | Objectif | Fin de journée |
-|---|---|---|
-| **J1** | Mise en route + **14 modèles de base** + migrations + auth minimale | Base qui tourne, seed, branches créées |
-| **J2** | Piles verticales (1) *(à 5 : E écrit ses modèles optionnels + sa migration)* | Chaque tranche a ses services + contrôleurs principaux |
-| **J3** | Piles (2) + 1ʳᵉ intégration | Merges, journal & enquête branchés sur le cycle de vie, tests croisés |
-| **J4** | Finitions, erreurs 403/404/500, seed réaliste, tests | App stable, README |
-| **J5** | Répétition + démo + rétro | Chacun présente sa tranche |
+| Jour   | Objectif                                                                     | Fin de journée                                                        |
+|--------|------------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| **J1** | Mise en route + **14 modèles de base** + migrations + auth minimale          | Base qui tourne, seed, branches créées                                |
+| **J2** | Piles verticales (1) *(à 5 : E écrit ses modèles optionnels + sa migration)* | Chaque tranche a ses services + contrôleurs principaux                |
+| **J3** | Piles (2) + 1ʳᵉ intégration                                                  | Merges, journal & enquête branchés sur le cycle de vie, tests croisés |
+| **J4** | Finitions, erreurs 403/404/500, seed réaliste, tests                         | App stable, README                                                    |
+| **J5** | Répétition + démo + rétro                                                    | Chacun présente sa tranche                                            |
 
 > J3 : chacun teste la tranche d'un autre (rotation circulaire : A→B→C→D→(E)→A).
 >
@@ -348,15 +348,15 @@ Périmètre **entièrement additif** : un groupe de 4 ne l'écrit pas et son app
 
 ## 11. Grille d'évaluation (100 pts)
 
-| Critère | Pts | Détail |
-|---|---|---|
-| Architecture en couches | 20 | Sens des dépendances respecté, services injectés/enregistrés, aucune requête en contrôleur ni logique en template |
-| Modèle & migrations | 15 | Les **14 tables de base**, relations correctes, migrations propres et rejouables |
-| Fonctionnalités | 25 | Les 4 tranches de base couvrent le périmètre |
-| Sécurité | 15 | argon2, JWT, contrôle de rôle sur chaque route sensible |
-| Qualité du code | 15 | DTO/mapper corrects, conventions du dépôt, gestion des erreurs |
-| Collaboration Git | 5 | Branches, MR, contributions équilibrées |
-| Présentation & README | 5 | Démo claire, doc suffisante |
+| Critère                 | Pts | Détail                                                                                                            |
+|-------------------------|-----|-------------------------------------------------------------------------------------------------------------------|
+| Architecture en couches | 20  | Sens des dépendances respecté, services injectés/enregistrés, aucune requête en contrôleur ni logique en template |
+| Modèle & migrations     | 15  | Les **14 tables de base**, relations correctes, migrations propres et rejouables                                  |
+| Fonctionnalités         | 25  | Les 4 tranches de base couvrent le périmètre                                                                      |
+| Sécurité                | 15  | argon2, JWT, contrôle de rôle sur chaque route sensible                                                           |
+| Qualité du code         | 15  | DTO/mapper corrects, conventions du dépôt, gestion des erreurs                                                    |
+| Collaboration Git       | 5   | Branches, MR, contributions équilibrées                                                                           |
+| Présentation & README   | 5   | Démo claire, doc suffisante                                                                                       |
 
 **Malus :** mot de passe en clair (−10), dépendance inversée / requête SQL dans un contrôleur (−10), `main` cassée à la démo (−5), changement de statut non journalisé (−5).
 
@@ -370,13 +370,13 @@ Les tests **pytest** (fixtures, base de test) concernent **tout le monde** : cha
 
 Les bonus sont eux aussi répartis **un par tranche**, pour que le supplément de travail reste équilibré :
 
-| Bonus | Tranche |
-|---|---|
-| Export CSV des statistiques + second graphique | 1 · Dev A |
-| Alertes tickets **hors délai SLA** (`ticketduedate` dépassée) | 2 · Dev B |
-| Notifications e-mail à l'assignation (mode console) | 3 · Dev C |
-| Rafraîchissement d'un tableau via le `table-component.js` fourni (API JSON) | 4 · Dev D |
-| Vue calendrier des interventions | 5 · Dev E *(si activée)* |
+| Bonus                                                                       | Tranche                  |
+|-----------------------------------------------------------------------------|--------------------------|
+| Export CSV des statistiques + second graphique                              | 1 · Dev A                |
+| Alertes tickets **hors délai SLA** (`ticketduedate` dépassée)               | 2 · Dev B                |
+| Notifications e-mail à l'assignation (mode console)                         | 3 · Dev C                |
+| Rafraîchissement d'un tableau via le `table-component.js` fourni (API JSON) | 4 · Dev D                |
+| Vue calendrier des interventions                                            | 5 · Dev E *(si activée)* |
 
 > Le bonus de la tranche 5 tombe avec elle : à 4, personne ne le reprend.
 >
@@ -386,18 +386,18 @@ Les bonus sont eux aussi répartis **un par tranche**, pour que le supplément d
 
 ## Annexe — Pont framework maison → Odoo
 
-| Ce projet (`pythonORM`) | Équivalent Odoo |
-|---|---|
-| Entité `(BaseEntity, db.Model)` | `models.Model` |
-| `createdate` / `updatedate` / `active` (`BaseEntity`) | champs automatiques `create_date` / `write_date` / `active` (archivage) |
-| FK / relation N-1 | `fields.Many2one` |
-| Relation 1-N | `fields.One2many` |
-| Table de liaison (`UserRole`, tags) | `fields.Many2many` |
-| Méthode métier sur l'entité (`change_status`, `add_role`) | méthode Python sur le modèle |
-| Service `find_all/insert/update/delete` | `search` / `create` / `write` / `unlink` |
-| Injecteur + `@inject` | `self.env` / registre Odoo |
-| `@auth_required(level=...)` + rôles | `res.groups` + `ir.rule` |
-| Migrations Flask-Migrate | mise à jour de module + fichiers `data/` |
-| Template Jinja | vue **QWeb** (XML) |
+| Ce projet (`pythonORM`)                                   | Équivalent Odoo                                                         |
+|-----------------------------------------------------------|-------------------------------------------------------------------------|
+| Entité `(BaseEntity, db.Model)`                           | `models.Model`                                                          |
+| `createdate` / `updatedate` / `active` (`BaseEntity`)     | champs automatiques `create_date` / `write_date` / `active` (archivage) |
+| FK / relation N-1                                         | `fields.Many2one`                                                       |
+| Relation 1-N                                              | `fields.One2many`                                                       |
+| Table de liaison (`UserRole`, tags)                       | `fields.Many2many`                                                      |
+| Méthode métier sur l'entité (`change_status`, `add_role`) | méthode Python sur le modèle                                            |
+| Service `find_all/insert/update/delete`                   | `search` / `create` / `write` / `unlink`                                |
+| Injecteur + `@inject`                                     | `self.env` / registre Odoo                                              |
+| `@auth_required(level=...)` + rôles                       | `res.groups` + `ir.rule`                                                |
+| Migrations Flask-Migrate                                  | mise à jour de module + fichiers `data/`                                |
+| Template Jinja                                            | vue **QWeb** (XML)                                                      |
 
 > Il n'y a **pas de Blueprint** ici, comme en Odoo. Le découpage `models / services / controllers / vues` que vous pratiquez est exactement celui d'un module Odoo — c'est le but.
