@@ -7,7 +7,7 @@ class EquipmentForm(FlaskForm):
         DataRequired(),
         Length(min=2, max=100)
     ])
-    type = StringField("Type", validators=[
+    equipment_type = StringField("Type", validators=[
         DataRequired(),
         Length(min=2, max=80)
     ])
