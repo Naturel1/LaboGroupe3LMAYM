@@ -26,10 +26,10 @@ class RoleService(BaseService):
         return Role.query.filter_by(**kwargs).first()
 
     def insert(self, data):
-        raise NotImplementedError("Roles are create by seeds/mogration")
+        raise NotImplementedError("Roles are create by seeds/migration")
 
     def update(self, entity_id: int, data):
-        raise NotImplementedError("Roles are create by seeds/mogration")
+        raise NotImplementedError("Roles are create by seeds/migration")
 
     def delete(self, entity_id: int):
-        raise NotImplementedError("Roles are create by seeds/mogration")
+        raise NotImplementedError("Roles are create by seeds/migration")
