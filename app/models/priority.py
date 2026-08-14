@@ -7,10 +7,10 @@ class Priority(BaseEntity, db.Model):
 
     __tablename__ = 'priorities'
 
-    priority_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    priority_name = db.Column(db.String(100), nullable=False, unique=True)
-    priority_level = db.Column(db.Integer, nullable=False)
-    priority_delay_hours = db.Column(db.Integer, nullable=False)
+    priority_id = db.mapped_column(db.Integer, primary_key=True, autoincrement=True)
+    priority_name = db.mapped_column(db.String(100), nullable=False, unique=True)
+    priority_level = db.mapped_column(db.Integer, nullable=False)
+    priority_delay_hours = db.mapped_column(db.Integer, nullable=False)
 
     # Add relationships
     tickets = db.relationship('Ticket', back_populates='priority',

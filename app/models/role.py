@@ -6,9 +6,9 @@ class Role(BaseEntity, db.Model):
     """Represents a user role within the system."""
     __tablename__ = 'roles'
 
-    role_id = db.Column(db.Integer, primary_key=True,
+    role_id = db.mapped_column(db.Integer, primary_key=True,
                         autoincrement=True)
-    role_name = db.Column(db.String(80), unique=True, nullable=False,
+    role_name = db.mapped_column(db.String(80), unique=True, nullable=False,
                           index=True)
 
     # Add relationships

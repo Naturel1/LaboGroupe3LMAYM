@@ -7,11 +7,11 @@ class InterventionType(BaseEntity, db.Model):
 
     __tablename__ = 'intervention_types'
 
-    intervention_type_id = db.Column(db.Integer, primary_key=True,
+    intervention_type_id = db.mapped_column(db.Integer, primary_key=True,
                                      autoincrement=True)
-    intervention_type_name = db.Column(db.String(64), unique=True,
+    intervention_type_name = db.mapped_column(db.String(64), unique=True,
                                        nullable=False)
-    intervention_type_description = db.Column(db.String(256), nullable=False)
+    intervention_type_description = db.mapped_column(db.String(256), nullable=False)
 
     # Add relationships
     interventions = db.relationship('Intervention', back_populates='intervention_type',

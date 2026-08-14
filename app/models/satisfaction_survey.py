@@ -14,17 +14,17 @@ class SatisfactionSurvey(BaseEntity, db.Model):
         ),
     )
 
-    satisfaction_survey_id = db.Column(db.Integer, primary_key=True,
+    satisfaction_survey_id = db.mapped_column(db.Integer, primary_key=True,
                                        autoincrement=True)
-    satisfaction_survey_rating = db.Column(db.Integer, nullable=False)
-    satisfaction_survey_comment = db.Column(db.Text, nullable=True)
-    satisfaction_survey_ticket_id = db.Column(
+    satisfaction_survey_rating = db.mapped_column(db.Integer, nullable=False)
+    satisfaction_survey_comment = db.mapped_column(db.Text, nullable=True)
+    satisfaction_survey_ticket_id = db.mapped_column(
         db.Integer, db.ForeignKey('tickets.ticket_id'),
         nullable=False, unique=True
     )
-    satisfaction_survey_client_id = db.Column(db.Integer, db.ForeignKey('users.user_id'),
+    satisfaction_survey_client_id = db.mapped_column(db.Integer, db.ForeignKey('users.user_id'),
                           nullable=False)
 
     # Add relationships
-    ticket = db.relationship('Ticket', back_populates='satisfaction_survey', cascade='all, delete-orphan')
-    client = db.relationship('User', back_populates='satisfaction_surveys', cascade='all, delete-orphan')
+    ticket = db.relationship('Ticket', back_populates='satisfaction_survey')
+    client = db.relationship('User', back_populates='satisfaction_surveys')

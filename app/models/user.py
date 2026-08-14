@@ -6,20 +6,20 @@ class User(BaseEntity, db.Model):
     """Represents a user (client, technician, or administrator)."""
     __tablename__ = 'users'
 
-    user_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    user_username = db.Column(db.String(80), unique=True,
+    user_id = db.mapped_column(db.Integer, primary_key=True, autoincrement=True)
+    user_username = db.mapped_column(db.String(80), unique=True,
                               nullable=False, index=True)
-    user_firstname = db.Column(db.String(64), nullable=False)
-    user_lastname = db.Column(db.String(64), nullable=False)
-    user_email = db.Column(db.String(128), unique=True, nullable=False,
+    user_firstname = db.mapped_column(db.String(64), nullable=False)
+    user_lastname = db.mapped_column(db.String(64), nullable=False)
+    user_email = db.mapped_column(db.String(128), unique=True, nullable=False,
                            index=True)
-    user_password = db.Column(db.String(256), nullable=False)  # hash argon2
-    user_team_id = db.Column(db.Integer, db.ForeignKey('teams.team_id'), nullable=True)
-    user_site_id = db.Column(db.Integer, db.ForeignKey('sites.site_id'), nullable=True)
+    user_password = db.mapped_column(db.String(256), nullable=False)  # hash argon2
+    user_team_id = db.mapped_column(db.Integer, db.ForeignKey('teams.team_id'), nullable=True)
+    user_site_id = db.mapped_column(db.Integer, db.ForeignKey('sites.site_id'), nullable=True)
 
     # Add relationships
-    team = db.relationship('Team', back_populates='members', cascade='all, delete-orphan')
-    site = db.relationship('Site', back_populates='users', cascade='all, delete-orphan')
+    team = db.relationship('Team', back_populates='members')
+    site = db.relationship('Site', back_populates='users')
     roles = db.relationship('UserRole', back_populates='user',
                             foreign_keys='UserRole.user_role_user_id', cascade='all, delete-orphan')
     tickets_created = db.relationship('Ticket', back_populates='author',
