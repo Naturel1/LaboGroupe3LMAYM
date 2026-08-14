@@ -57,8 +57,8 @@ class CategoryService(BaseService):
         category = self.find_one_entity(entity_id)
         if category is None:
             return None
+        category.active = False
         try:
-            db.session.delete(category)
             db.session.commit()
         except Exception as e:
             app.logger.error(f"delete category {entity_id}: {e}")
