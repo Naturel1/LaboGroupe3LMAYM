@@ -8,7 +8,7 @@ class Comment(BaseEntity, db.Model):
     __tablename__ = 'comments'
 
     comment_id = db.mapped_column(db.Integer, primary_key=True, autoincrement=True)
-    comment_content = db.mapped_column(db.String(1024), nullable=True)
+    comment_content = db.mapped_column(db.Text, nullable=True)
     comment_author_id = db.mapped_column(db.ForeignKey('users.user_id'))
     comment_ticket_id = db.mapped_column(db.ForeignKey('tickets.ticket_id'))
 
