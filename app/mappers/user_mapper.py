@@ -27,3 +27,5 @@ class UserMapper(AbstractMapper):
 
         elif isinstance(form, UserUpdateForm):
             user.user_email = form.email.data
+
+        return user
