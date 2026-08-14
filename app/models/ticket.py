@@ -1,3 +1,5 @@
+from flask import app
+
 from app import db
 from app.models.base_entity import BaseEntity
 from app.models.ticket_status_history import TicketStatusHistory
@@ -69,7 +71,7 @@ class Ticket(BaseEntity, db.Model):
         foreign_keys='Intervention.intervention_ticket_id'
     )
 
-    def change_status(self, new_status):
+    def change_status(self, new_status) -> bool:
         """Change the status and log the change in status history."""
 
         history_entry = TicketStatusHistory()
@@ -79,5 +81,12 @@ class Ticket(BaseEntity, db.Model):
         )
         history_entry.ticket_status_history_old_status = self.ticket_status
         history_entry.ticket_status_history_new_status = new_status
-        db.session.add(history_entry)
         self.ticket_status = new_status
+        try:
+            db.session.add(history_entry)
+            db.session.commit()
+        except Exception as e:
+            app.logger.error(f"change status for ticket {self.ticket_id}: {e}")
+            db.session.rollback()
+            return False
+        return True
