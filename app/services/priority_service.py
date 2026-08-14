@@ -57,8 +57,8 @@ class PriorityService(BaseService):
         priority = self.find_one_entity(entity_id)
         if priority is None:
             return None
+        priority.active = False
         try:
-            db.session.delete(priority)
             db.session.commit()
         except Exception as e:
             app.logger.error(f"delete priority {entity_id}: {e}")
