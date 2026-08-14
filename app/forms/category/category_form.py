@@ -8,5 +8,5 @@ class CategoryForm(FlaskForm):
     Form for category creation and update.
     """
 
-    name = StringField('Nom', validators=[DataRequired(), Length(min=2, max=255)])
+    name = StringField('Name', validators=[DataRequired(), Length(min=2, max=255)])
     description = TextAreaField('Description', validators=[DataRequired()])
