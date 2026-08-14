@@ -22,7 +22,7 @@ class RoleService(BaseService):
     def find_one_entity(self, entity_id: int) -> Role | None:
         return Role.query.filter_by(role_id = entity_id).first()
 
-    def find_on_by(self, **kwargs) -> Role | None:
+    def find_one_by(self, **kwargs) -> Role | None:
         return Role.query.filter_by(**kwargs).first()
 
     def insert(self, data):
