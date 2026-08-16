@@ -1,5 +1,6 @@
 from app.dtos.abstract_dto import AbstractDTO
 
+
 class EquipmentDTO(AbstractDTO):
     def __init__(self):
         self.equipment_id = None
