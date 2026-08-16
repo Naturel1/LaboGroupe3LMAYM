@@ -1,5 +1,6 @@
 from app import db
 from app.framework.decorators.injectable import injectable
+from app.models.user import User
 from app.services.base_service import BaseService
 from app.models.equipment import Equipment
 from app.forms.equipment.equipment_form import EquipmentForm
@@ -12,12 +13,14 @@ class EquipmentService(BaseService):
         return [EquipmentMapper.entity_to_dto(eq) for eq in Equipment.query.filter_by(active=True).all()]
 
     def find_one(self,equipment_id):
-        eq = Equipment.query.filter_by(equipment_id=equipment_id, active=True).first()
+        eq = self.find_one_entity(equipment_id)
         return EquipmentMapper.entity_to_dto(eq) if eq else None
 
+    def find_one_entity(self, entity_id: int):
+        return Equipment.query.filter_by(equipment_id=entity_id, active=True).first()
+
     def find_one_by(self, **kwargs):
-        eq = Equipment.query.filter_by(active=True, **kwargs).first()
-        return EquipmentMapper.entity_to_dto(eq) if eq else None
+        return Equipment.query.filter_by(active=True, **kwargs).first()
 
     def insert(self, form: EquipmentForm):
         eq = Equipment()
@@ -27,7 +30,7 @@ class EquipmentService(BaseService):
         return EquipmentMapper.entity_to_dto(eq)
 
     def update(self, equipment_id, form: EquipmentForm):
-        eq = Equipment.query.filter_by(equipment_id=equipment_id, active=True).first()
+        eq = self.find_one_entity(equipment_id)
         if eq is None:
             return None
         eq = EquipmentMapper.form_to_entity(form, eq)
@@ -35,9 +38,9 @@ class EquipmentService(BaseService):
         return EquipmentMapper.entity_to_dto(eq)
 
     def delete(self, equipment_id):
-            eq = self.find_one(equipment_id)
-            if eq is None:
-                return None
-            eq.active = False
-            db.session.commit()
-            return eq
+        eq = self.find_one(equipment_id)
+        if eq is None:
+            return None
+        eq.soft_delete()
+        db.session.commit()
+        return eq.equipment_id

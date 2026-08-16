@@ -18,6 +18,10 @@ class SiteService(BaseService):
         site = self.find_one_entity(site_id)
         return SiteMapper.entity_to_dto(site) if site else None
 
+    def find_one_entity(self, site_id):
+        """Find one SQLalchemy entity by any field."""
+        return Site.query.filter_by(site_id=site_id, active=True).first()
+
     def find_one_by(self, **kwargs):
         """Find one site by any field."""
         return Site.query.filter_by(active=True, **kwargs).first()
@@ -32,7 +36,7 @@ class SiteService(BaseService):
 
     def update(self, site_id, form: SiteForm):
         """Update a site attributes."""
-        site = self.find_one(site_id)
+        site = self.find_one_entity(site_id)
         if site is None:
             return None
         site = SiteMapper.form_to_entity(form, site)
@@ -41,9 +45,9 @@ class SiteService(BaseService):
 
     def delete(self, site_id):
         """Soft delete a site"""
-        site = self.find_one(site_id)
+        site = self.find_one_entity(site_id)
         if site is None:
             return None
-        site.active = False
+        site.soft_delete()
         db.session.commit()
-        return site
+        return site.site_id

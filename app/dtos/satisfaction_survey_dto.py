@@ -13,10 +13,10 @@ class SatisfactionSurveyDTO(AbstractDTO):
     def build_from_entity(entity):
         sas_dto = SatisfactionSurveyDTO()
         sas_dto.satisfaction_survey_id = entity.satisfaction_survey_id
-        sas_dto.satisfaction_survey_rating = entity.satisfaction_survey_rating
-        sas_dto.satisfaction_survey_comment = entity.satisfaction_survey_comment
-        sas_dto.satisfaction_survey_ticket_id = entity.satisfaction_survey_ticket_id
-        sas_dto.satisfaction_survey_client_id = entity.satisfaction_survey_client_id
+        sas_dto.rating = entity.satisfaction_survey_rating
+        sas_dto.comment = entity.satisfaction_survey_comment
+        sas_dto.ticket_id = entity.satisfaction_survey_ticket_id
+        sas_dto.client_id = entity.satisfaction_survey_client_id
         return sas_dto
 
     def get_json_parsable(self):
