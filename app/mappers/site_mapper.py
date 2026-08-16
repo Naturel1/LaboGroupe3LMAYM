@@ -5,9 +5,9 @@ from app.forms.site.site_form import SiteForm
 
 
 class SiteMapper(AbstractMapper):
-   
+
     @staticmethod
-    def entity_to_dto(entity: Site) -> SiteDTO:
+    def entity_to_dto(entity: Site):
         return SiteDTO.build_from_entity(entity)
 
     @staticmethod
